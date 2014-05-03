@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Player {
 
 	Vector2 position;
-	float speed = .5f;
+	float speed = .2f;
 	
 	final int tileSize = 16;
 	
