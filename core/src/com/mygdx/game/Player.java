@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -34,14 +35,28 @@ public class Player {
 	}
 	
 	public void update() {
-		if(Gdx.input.isTouched()) {
-			destinationX = (Gdx.input.getX() - width/2)/tileSize;
-			destinationY = (Gdx.graphics.getHeight() - Gdx.input.getY() - height/2)/tileSize; 
-		}
-			
-		position.x += (destinationX - position.x)*(speed/Math.sqrt(((destinationX - position.x)*(destinationX - position.x))+((destinationY - position.y)*(destinationY - position.y))));
-		position.y += (destinationY - position.y)*(speed/Math.sqrt(((destinationX - position.x)*(destinationX - position.x))+((destinationY - position.y)*(destinationY - position.y))));	
+//		if(Gdx.input.isTouched()) {
+//			destinationX = (Gdx.input.getX() - width/2)/tileSize;
+//			destinationY = (Gdx.graphics.getHeight() - Gdx.input.getY() - height/2)/tileSize; 
+//		}
+//			
+//		position.x += (destinationX - position.x)*(speed/Math.sqrt(((destinationX - position.x)*(destinationX - position.x))+((destinationY - position.y)*(destinationY - position.y))));
+//		position.y += (destinationY - position.y)*(speed/Math.sqrt(((destinationX - position.x)*(destinationX - position.x))+((destinationY - position.y)*(destinationY - position.y))));	
+//		
+//		System.out.println("X:" + destinationX + " || Y:" + destinationY);
 		
-		System.out.println("X:" + destinationX + " || Y:" + destinationY);
+		Gdx.input.setInputProcessor(new InputAdapter () {
+			   public boolean keyTyped(char character) {
+				   if(character == 'w')
+					   position.y++;
+				   else if(character == 's')
+					   position.y--;
+				   else if(character == 'd')
+					   position.x++;
+				   else if(character == 'a')
+					   position.x--;
+				   return true;
+			   }
+			});
 	}
 }
