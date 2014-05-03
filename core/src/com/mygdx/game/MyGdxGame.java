@@ -10,7 +10,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	
-	Ball b;
+	Player b;
 	
 	Map map;
 	
@@ -18,7 +18,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		map = new Map();
-		b = new Ball(100, 100);
+		b = new Player(1, 1);
 	}
 
 	@Override
@@ -26,14 +26,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		//b.update();
-		if(Gdx.input.justTouched())
-			map.generate();
+		b.update();
+		/*if(Gdx.input.justTouched())
+			map.generate();*/
 		
 		batch.begin();
 		
 		map.render(batch);
-		//b.draw(batch);
+		b.draw(batch);
 		
 		batch.end();
 		

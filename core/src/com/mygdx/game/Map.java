@@ -6,7 +6,7 @@ import com.mygdx.game.Tile.Type;
 
 public class Map {
 
-	int tileSize = 16;
+	final int tileSize = 16;
 	
 	private int mapWidth = (int) Math.ceil((double) Gdx.graphics.getWidth()/(double) tileSize);
 	private int mapHeight = (int) Math.ceil((double) Gdx.graphics.getHeight()/(double) tileSize);

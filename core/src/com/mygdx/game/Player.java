@@ -5,10 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class Ball {
+public class Player {
 
 	Vector2 position;
-	float speed = 5;
+	float speed = .5f;
+	
+	final int tileSize = 16;
 	
 	private Texture texture;
 	
@@ -17,7 +19,7 @@ public class Ball {
 	float destinationX, destinationY;
 	
 	
-	public Ball(int x, int y) {
+	public Player(int x, int y) {
 		position = new Vector2(x, y);
 		texture = new Texture("player.png");
 		width = texture.getWidth();
@@ -28,13 +30,13 @@ public class Ball {
 	}
 
 	public void draw(SpriteBatch batch) {
-		batch.draw(texture, position.x, position.y, 16, 16);
+		batch.draw(texture, position.x*tileSize, position.y*tileSize, tileSize, tileSize);
 	}
 	
 	public void update() {
 		if(Gdx.input.isTouched()) {
-			destinationX = Gdx.input.getX() - width/2;
-			destinationY = Gdx.graphics.getHeight() - Gdx.input.getY() - height/2; 
+			destinationX = (Gdx.input.getX() - width/2)/tileSize;
+			destinationY = (Gdx.graphics.getHeight() - Gdx.input.getY() - height/2)/tileSize; 
 		}
 			
 		position.x += (destinationX - position.x)*(speed/Math.sqrt(((destinationX - position.x)*(destinationX - position.x))+((destinationY - position.y)*(destinationY - position.y))));
