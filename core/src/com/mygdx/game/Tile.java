@@ -17,13 +17,14 @@ public class Tile {
 	
 	public Vector2 position;
 	
-	public final int tileSize = 16;
+	public final int tileSize;
 	private Type type;
 	
 	Map map;
 	
 	//Constructor
 	public Tile(int x, int y, Map map) {
+		tileSize = map.tileSize;
 		this.map = map;
 		
 		position = new Vector2(x, y);
