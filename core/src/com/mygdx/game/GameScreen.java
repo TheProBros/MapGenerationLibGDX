@@ -2,6 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -12,27 +14,44 @@ public class GameScreen implements Screen {
 	
 	MyGdxGame game;
 	
+	private Texture background;
+	
 	Player p;
 	Map map;
 	
 	public GameScreen(MyGdxGame myGdxGame) {
 		game = myGdxGame;
 		
+		background = new Texture("background.png");
+		
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		
-		p = new Player(1, 1);
 		map = new Map();
+		p = new Player(map);
 	}
 
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
+		Gdx.gl.glClearColor(0, 0.2f, 0.2f, 1);
+	    Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+	      
+	      
 		batch.begin();
+		batch.draw(background, 0, 0);
 		map.render(batch);
+		p.render(batch);
+		
 		font.draw(batch, "" + Gdx.graphics.getFramesPerSecond(), 100, 100);
-		System.out.println("lol");
 		batch.end();
+		
+		p.update();
+		
+		if(Gdx.input.justTouched()) {
+			map.generate();
+			p.searchSpawnPoint();
+		}
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import com.mygdx.game.Tile.Type;
 
 public class Map {
 
-	final public int tileSize = 16;
+	final public int tileSize = 8;
 	
 	private int mapWidth = (int) Math.ceil((double) Gdx.graphics.getWidth()/(double) tileSize);
 	private int mapHeight = (int) Math.ceil((double) Gdx.graphics.getHeight()/(double) tileSize);
@@ -17,8 +17,6 @@ public class Map {
 	
 	public Map() {
 		generate();
-		
-		System.out.println(mapHeight);
 	}
 
 	public void render(SpriteBatch batch) {
@@ -31,7 +29,7 @@ public class Map {
 	
 	//Map Generation methods
 	public void generate() {
-		wallChance = .4f;
+		wallChance = .45f;
 		
 		for (int i = 0; i < mapWidth; i++) {
 			for (int j = 0; j < mapHeight; j++) {
@@ -105,6 +103,10 @@ public class Map {
 
 	public int getMapHeight() {
 		return mapHeight;
+	}
+
+	public Tile[][] getMap() {
+		return map;
 	}
 
 }
