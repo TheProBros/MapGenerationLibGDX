@@ -1,15 +1,17 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Tile.Type;
 
 public class Map {
 
-	final public int tileSize = 8;
+	final public int tileSize = 16;
 	
-	private int mapWidth = (int) Math.ceil((double) Gdx.graphics.getWidth()/(double) tileSize);
-	private int mapHeight = (int) Math.ceil((double) Gdx.graphics.getHeight()/(double) tileSize);
+	/*private int mapWidth = (int) Math.ceil((double) Gdx.graphics.getWidth()/(double) tileSize);
+	private int mapHeight = (int) Math.ceil((double) Gdx.graphics.getHeight()/(double) tileSize);*/
+	
+	private int mapWidth = 100;
+	private int mapHeight = 100;
 	
 	private Tile map[][] = new Tile[mapWidth][mapHeight];
 	
