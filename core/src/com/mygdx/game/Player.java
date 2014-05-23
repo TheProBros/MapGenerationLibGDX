@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -10,7 +11,7 @@ import com.mygdx.game.Tile.Type;
 public class Player {
 
 	Vector2 position;
-	float speed = .5f;
+	float speed = 1;
 	
 	final int tileSize;
 	
@@ -23,7 +24,10 @@ public class Player {
 	Map map;
 	Tile tileMap[][];
 	
-	public Player(Map map) {
+	OrthographicCamera camera;
+	
+	public Player(Map map, OrthographicCamera cam) {
+		camera = cam;
 		this.map = map;
 		tileSize = map.tileSize;
 		this.tileMap = map.getMap();
@@ -49,8 +53,9 @@ public class Player {
 			if(tileMap[(int) position.x][(int) position.y].getType() == Type.WALL)
 				position.y++;
 			
-			System.out.println("done");
 		}
+		
+		camera.position.set(position.x*tileSize, position.y*tileSize, 0);
 	}
 	
 	public boolean collision(char key) {
@@ -88,21 +93,27 @@ public class Player {
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean keyTyped(char key) {
 				   if(!collision(key)) {
-					   if(key == 'w')
-						   position.y++;
+					   if(key == 'w') 
+						   move(0, speed);
 					   
 					   else if(key == 's')
-						   position.y--;
+						   move(0, -speed);
 					   
 					   else if(key == 'd')
-						   position.x++;
+						   move(speed, 0);
 					   
 					   else if(key == 'a')
-						   position.x--;
+						   move(-speed, 0);
 				   }
 				   
 				   return true;
 			   }
 			});
+	}
+	
+	private void move(float x, float y) {
+		position.add(x, y);
+		camera.translate(x*tileSize, y*tileSize);
+		camera.update();
 	}
 }

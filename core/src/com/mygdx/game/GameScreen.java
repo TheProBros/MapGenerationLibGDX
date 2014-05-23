@@ -21,6 +21,8 @@ public class GameScreen implements Screen {
 	Player p;
 	Map map;
 	
+	Bot bot;
+	
 	public GameScreen(MyGdxGame myGdxGame) {
 		game = myGdxGame;
 		
@@ -32,7 +34,9 @@ public class GameScreen implements Screen {
 		font = new BitmapFont();
 		
 		map = new Map();
-		p = new Player(map);
+		p = new Player(map, cam);
+		bot = new Bot(map.tileSize, p.position.x, p.position.y);
+		cam.position.set(p.position.x*map.tileSize, p.position.y*map.tileSize, 0);
 	}
 
 	@Override
@@ -43,17 +47,16 @@ public class GameScreen implements Screen {
 	    batch.setProjectionMatrix(cam.combined);
 	    cam.update();
 	      
+	    p.update();
+	    
 		batch.begin();
 		batch.draw(background, 0, 0, map.getMapWidth()*map.tileSize, map.getMapHeight()*map.tileSize);
 		map.render(batch);
+		bot.render(batch);
 		p.render(batch);
 		
-		font.draw(batch, "" + Gdx.graphics.getFramesPerSecond(), 100, 100);
+		font.draw(batch, "" + Gdx.graphics.getFramesPerSecond(), p.position.x*map.tileSize - 250, p.position.y*map.tileSize-250);
 		batch.end();
-		
-		p.update();
-		cam.position.set(p.position.x*map.tileSize, p.position.y*map.tileSize, 0);
-		cam.update();
 		
 		if(Gdx.input.justTouched()) {
 			map.generate();
